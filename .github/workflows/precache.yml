@@ -1,0 +1,25 @@
+name: Precache URLs
+
+on:
+  schedule:
+    - cron: "0 */2 * * *"   # every 2 hours UTC
+  workflow_dispatch:        # allow manual trigger
+
+jobs:
+  precache:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run precache job
+        run: node precache.js
